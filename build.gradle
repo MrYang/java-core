@@ -18,3 +18,10 @@ subprojects { subproj ->
         testCompile 'junit:junit:4.11'
     }
 }
+
+project(':groovy'){
+    apply plugin: 'groovy'
+    dependencies {
+        compile 'org.codehaus.groovy:groovy-all:2.4.4'
+    }
+}

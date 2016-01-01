@@ -1,2 +1,15 @@
+out
+.idea
+*.ipr
+*.iws
 *.iml
-build/
+
+/target
+*/target
+/build
+*/build
+
+.classpath
+.project
+.settings
+.metadata
