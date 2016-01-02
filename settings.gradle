@@ -13,4 +13,5 @@ include 'security'
 include 'socket'
 include 'offer'
 include 'groovy'
+include 'pattern'
 

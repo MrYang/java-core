@@ -26,6 +26,8 @@ public class Lambda {
         Collections.sort(names, (a, b) -> b.compareTo(a));
 
         names.forEach((str) -> System.out.println(str));
+
+        names.forEach(System.out::println);
     }
 
     public void simpleFilter() {
@@ -71,6 +73,7 @@ public class Lambda {
 
         List<String> countries = Arrays.asList("USA", "Japan", "France", "Germany", "Italy", "U.K.", "Canada");
         String result = countries.stream().map((str) -> str.toUpperCase()).collect(Collectors.joining(","));
+        String result2 = countries.stream().map(String::toUpperCase).collect(Collectors.joining(","));
         System.out.println(result);
     }
 
