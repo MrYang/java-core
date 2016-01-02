@@ -13,3 +13,6 @@ out
 .project
 .settings
 .metadata
+
+/.gradle
+*/.gradle
