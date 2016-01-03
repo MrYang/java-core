@@ -11,9 +11,11 @@ import java.util.concurrent.Executors;
 
 public class BlockTranObjectServer {
 
+    private static final int PORT = 8080;
+
     public static void main(String[] args) throws Exception {
         Executor pool = Executors.newCachedThreadPool();
-        try (ServerSocket serverSocket = new ServerSocket(8080)) {
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             while (true) {
                 try (final Socket socket = serverSocket.accept()) {
                     Runnable r = () -> handleRequest(socket);

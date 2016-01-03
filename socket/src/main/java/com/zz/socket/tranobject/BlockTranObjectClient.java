@@ -10,9 +10,11 @@ import java.util.Date;
 
 public class BlockTranObjectClient {
 
+    private static final int PORT = 8080;
+
     public static void main(String[] args) throws Exception {
         for (int i = 0; i < 100; i++) {
-            try (Socket socket = new Socket("localhost", 8080);
+            try (Socket socket = new Socket("localhost", PORT);
                  ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
                  ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()))) {
 
