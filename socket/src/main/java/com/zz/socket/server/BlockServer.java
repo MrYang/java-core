@@ -13,9 +13,10 @@ public class BlockServer {
         ServerSocket socket = new ServerSocket(8080);
 
         while (true) {
-            final Socket connection = socket.accept();
-            Runnable r = () -> handleRequest(connection);
-            pool.execute(r);
+            try (final Socket connection = socket.accept()) {
+                Runnable r = () -> handleRequest(connection);
+                pool.execute(r);
+            }
         }
     }
 
