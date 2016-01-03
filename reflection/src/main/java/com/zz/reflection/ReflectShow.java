@@ -1,5 +1,7 @@
 package com.zz.reflection;
 
+import com.zz.common.entity.User;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -14,12 +16,12 @@ import java.util.Date;
  * 分别返回类中声明的全部域、方法和构造器数组。其中包括私有和保护成员，但不包括超类的成员
  * <p>
  * Type是Java编程语言中所有类型的普通的父接口，需要注意Type 的类层次结构
- * Method, Parameter, Field, Annotation 类似, 具体用法可以参见api
+ * Method, Parameter, Field, Annotation 与Class 类似, 具体用法可以参见api
  */
 public class ReflectShow {
 
     public void show() throws Exception {
-        Class clazz = Class.forName("com.zz.reflection.User");
+        Class clazz = Class.forName("com.zz.common.entity.User");
         User user = (User) clazz.newInstance();
 
         Constructor constructor = clazz.getConstructor(new Class[]{String.class, Date.class});

@@ -1,13 +1,18 @@
-package com.zz.reflection;
+package com.zz.common.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 8075259084628563977L;
 
     private String username;
     private Date birthday;
 
-    public User(String username, Date birthday){
+    public User(){}
+
+    public User(String username, Date birthday) {
         this.username = username;
         this.birthday = birthday;
     }
