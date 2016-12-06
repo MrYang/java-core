@@ -2,11 +2,15 @@ package com.zz.reflection;
 
 import com.zz.common.entity.User;
 
+import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * getFields() getMethods() getConstructors()（还有带字符串参数，给定名称的形式）
@@ -58,5 +62,33 @@ public class ReflectShow {
         Array.set(array, 5, "hello");
         String s = (String) Array.get(array, 5);
         System.out.println(s);
+    }
+
+    public List<Class<?>> scanPackage(String packageName, List<Class<?>> classes) throws Exception {
+        String pack = packageName.replace('.', '/');
+        URL url = Thread.currentThread().getContextClassLoader().getResource(pack);
+        if (url == null) {
+            throw new RuntimeException("包不存在");
+        }
+
+        File dir = new File(url.toURI());
+        for (File file : dir.listFiles()) {
+            if (file.isDirectory()) {
+                scanPackage(packageName + "." + file.getName(), classes);
+            } else {
+                String className = packageName + "." + file.getName();
+                System.out.println(className);
+                String clazz = className.substring(0, className.length() - 6);
+                classes.add(Class.forName(clazz));
+            }
+        }
+
+        return classes;
+    }
+
+    public static void main(String[] args) throws Exception {
+        List<Class<?>> classes = new ArrayList<>();
+        new ReflectShow().scanPackage("com.zz.reflection", classes);
+        System.out.println(classes.size());
     }
 }

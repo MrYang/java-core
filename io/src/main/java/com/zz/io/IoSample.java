@@ -1,6 +1,8 @@
 package com.zz.io;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class IoSample {
@@ -25,6 +27,7 @@ public class IoSample {
     }
 
     public static void readFile3(File txtFile) throws IOException {
+        Files.readAllLines(Paths.get(txtFile.toURI()));
         FileReader fr = new FileReader(txtFile);
         char[] buf = new char[32];
         int hasRead;

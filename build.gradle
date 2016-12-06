@@ -22,9 +22,10 @@ subprojects { subproj ->
     }
 }
 
-project(':groovy') {
+
+/*project(':groovy') {
     apply plugin: 'groovy'
     dependencies {
         compile 'org.codehaus.groovy:groovy-all:2.4.4'
     }
-}
+}*/
