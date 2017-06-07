@@ -23,9 +23,20 @@ subprojects { subproj ->
 }
 
 
-/*project(':groovy') {
-    apply plugin: 'groovy'
-    dependencies {
-        compile 'org.codehaus.groovy:groovy-all:2.4.4'
+/*
+project(':groovy') {
+    buildscript {
+        repositories {
+            jcenter()
+        }
+        dependencies {
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.6"
+        }
     }
-}*/
+    apply plugin: 'kotlin'
+    dependencies {
+        compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.6"
+    }
+}
+
+*/
