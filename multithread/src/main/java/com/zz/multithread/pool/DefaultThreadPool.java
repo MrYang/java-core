@@ -1,10 +1,9 @@
 package com.zz.multithread.pool;
 
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class DefaultThreadPool<Job extends Runnable> implements ThreadPool<Job> {
@@ -14,7 +13,7 @@ public class DefaultThreadPool<Job extends Runnable> implements ThreadPool<Job> 
     private static final int MIN_WORKER_NUMBERS = 1;
 
     private final LinkedList<Job> jobs = new LinkedList<>();
-    private final List<Worker> workers = Collections.synchronizedList(new ArrayList<>());
+    private final List<Worker> workers = new CopyOnWriteArrayList<>();
     private int workerNum = DEFAULT_WORKER_NUMBERS;
 
     private AtomicLong threadNum = new AtomicLong();
