@@ -4,13 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.*;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.IntStream;
 
 public class Concurrent {
-    private Executor pool = Executors.newCachedThreadPool();
-
 
     public void future() throws ExecutionException, InterruptedException {
         List<CompletableFuture<Long>> list = new ArrayList<>();
@@ -52,21 +48,5 @@ public class Concurrent {
 
     }
 
-    private Lock lock = new ReentrantLock();
-
-    public void condition() {
-    }
-
-    public void semaphore() {
-
-    }
-
-    public void cyclicBarrier() {
-
-    }
-
-    public void countdownLatch() {
-
-    }
 
 }

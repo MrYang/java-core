@@ -10,12 +10,18 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * @author Mr.Yang
  * @since 2017-07-14
+ *
+ * Condition的强大之处，假设缓存队列中已经存满，那么阻塞的肯定是写线程，唤醒的肯定是读线程，
+ * 相反，阻塞的肯定是读线程，唤醒的肯定是写线程，
+ * 假设只有一个Condition会有什么效果呢，缓存队列中已经存满，
+ * 这个Lock不知道唤醒的是读线程还是写线程了，如果唤醒的是读线程，皆大欢喜，
+ * 如果唤醒的是写线程，那么线程刚被唤醒，又被阻塞了，这时又去唤醒，这样就浪费了很多时间
  */
 public class ConditionSample3 {
 
     private Lock lock = new ReentrantLock();
-    private Condition notFull = lock.newCondition();
-    private Condition notEmpty = lock.newCondition();
+    private Condition notFull = lock.newCondition();    // 写入队列阻塞
+    private Condition notEmpty = lock.newCondition();   // 从队列中读阻塞
 
     public static void main(String[] args) {
         ConditionSample3 conditionSample3 = new ConditionSample3();
@@ -45,7 +51,7 @@ public class ConditionSample3 {
                     while (queue.size() == maxSize) {
                         try {
                             System.out.println("queue full");
-                            notFull.await();
+                            notFull.await();    // 阻塞生产者
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -53,7 +59,7 @@ public class ConditionSample3 {
                         int i = random.nextInt();
                         System.out.println("Producing value : " + i);
                         queue.add(i);
-                        notEmpty.notifyAll();
+                        notEmpty.notifyAll();   // 唤醒消费者
                     }
                 } finally {
                     lock.unlock();
