@@ -8,6 +8,7 @@ public class Sort {
      * 基本思想：在要排序的一组数中，假设前面(n-1)[n>=2] 个数已经是排
      * 好顺序的，现在要把第n个数插到前面的有序数中，使得这n个数
      * 也是排好顺序的。如此反复循环，直到全部排好顺序。
+     * 时间复杂度O(n^2), 空间复杂度O(1)
      */
     public void insertSort() {
         int temp = 0;
@@ -22,20 +23,43 @@ public class Sort {
     }
 
     /**
-     * 算法先将要排序的一组数按某个增量d（n/2,n为要排序数的个数）分成若干组，每组中记录的下标相差d.
-     * 对每组中全部元素进行直接插入排序，然后再用一个较小的增量（d/2）对它进行分组，
+     * 算法先将要排序的一组数按某个增量d（n/3,n为要排序数的个数）分成若干组，每组中记录的下标相差d.
+     * 对每组中全部元素进行直接插入排序，然后再用一个较小的增量（d/3）对它进行分组，
      * 在每组中再进行直接插入排序。当增量减到1时，进行直接插入排序后，排序完成。
+     * 插入排序上进行的改进，在插入排序中，如果一个较小的数字在后面的话，移动起来会很浪费时间，
+     * 希尔排序的思路是通过设置不为1的间距，将一些较小的数字移动的前面，从而减少移动的次数
      */
     public void shellSort() {
-
+        int h = 1;
+        while (h < array.length / 3) {
+            h = h * 3 + 1;
+        }
+        while (h >= 1) {
+            for (int i = h; i < array.length; i++) {
+                for (int j = i; j >= h && array[j] < array[j - h]; j -= h) {
+                    exch(j, j - h);
+                }
+            }
+            h = h / 3;
+        }
     }
 
     /**
      * 在要排序的一组数中，选出最小的一个数与第一个位置的数交换；
      * 然后在剩下的数当中再找最小的与第二个位置的数交换，如此循环到倒数第二个数和最后一个数比较为止。
+     * 时间复杂度O(n^2), 空间复杂度O(1)
      */
     public void selectSort() {
+        for (int i = 0; i < array.length - 1; i++) {
+            int min = i;
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[j] < array[min]) {
+                    min = j;
+                }
+            }
 
+            exch(min, i);
+        }
     }
 
     /**
@@ -57,9 +81,16 @@ public class Sort {
     /**
      * 在要排序的一组数中，对当前还未排好序的范围内的全部数，自上而下对相邻的两个数依次进行比较和调整，
      * 让较大的数往下沉，较小的往上冒。即：每当两相邻的数比较后发现它们的排序与排序要求相反时，就将它们互换。
+     * 时间复杂度O(n^2), 空间复杂度O(1)，
      */
     public void bubbleSort() {
-
+        for (int i = 0; i < array.length - 1; i++) {
+            for (int j = i; j < array.length - 1; j++) {
+                if (array[j] > array[j + 1]) {
+                    exch(j, j + 1);
+                }
+            }
+        }
     }
 
     /**
@@ -83,5 +114,20 @@ public class Sort {
      * 依次进行一次排序。这样从最低位排序一直到最高位排序完成以后,数列就变成一个有序序列。
      */
     public void raidxSort() {
+    }
+
+    private void exch(int i, int j) {
+        int t = array[j];
+        array[j] = array[i];
+        array[i] = t;
+    }
+
+    public static void main(String[] args) {
+        Sort s = new Sort();
+        s.quickSort();
+
+        for (int a : s.array) {
+            System.out.println(a);
+        }
     }
 }
